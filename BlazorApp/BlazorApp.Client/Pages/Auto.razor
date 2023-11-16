@@ -5,6 +5,7 @@
 @attribute [Authorize]
 @rendermode InteractiveAuto
 @inject IRenderModeExplainer Explainer
+@inject ICallApi Api
 
 <PageTitle>Interactive Auto Render Mode</PageTitle>
 
@@ -24,5 +25,19 @@
             <li>@claim.Type: @claim.Value</li>
         }
         </ul>
+        <p>
+            @apiResult
+        </p>
     </Authorized>
 </AuthorizeView>
+
+
+@code {
+    private string apiResult = string.Empty;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        apiResult = await Api.CallApiAsync();
+    }
+}
+
