@@ -1,6 +1,8 @@
+using BlazorApp;
 using BlazorApp.Client;
 using BlazorApp.Client.Pages;
 using BlazorApp.Components;
+using Duende.AccessTokenManagement.OpenIdConnect;
 using Duende.Bff;
 using Duende.Bff.Yarp;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -17,6 +19,7 @@ builder.Services
 
 builder.Services.AddScoped<IRenderModeExplainer, ServerExplainer>();
 builder.Services.AddScoped<ICallApi, CallApiFromServer>();
+builder.Services.AddSingleton<IUserTokenStore, ServerSideTokenStore>();
 
 builder.Services.AddBff()
     .AddRemoteApis();
@@ -31,6 +34,7 @@ builder.Services.AddAuthentication(opt =>
     .AddCookie("cookie", opt =>
     {
         opt.Cookie.Name = "__Host-auto-blazor";
+        opt.EventsType = typeof(CookieEvents);
     })
     .AddOpenIdConnect("oidc", opt =>
     {
@@ -53,8 +57,13 @@ builder.Services.AddAuthentication(opt =>
 
         opt.GetClaimsFromUserInfoEndpoint = true;
         opt.SaveTokens = true;
+
+        opt.EventsType = typeof(OidcEvents);
     });
 
+// register events to customize authentication handlers
+builder.Services.AddTransient<CookieEvents>();
+builder.Services.AddTransient<OidcEvents>();
 
 var app = builder.Build();
 
