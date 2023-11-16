@@ -26,6 +26,11 @@ builder.Services.AddBff()
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
 
+builder.Services.AddHttpClient("server-side-api-client", http =>
+    {
+        http.BaseAddress = new Uri("https://localhost:7001");
+    });
+
 builder.Services.AddAuthentication(opt =>
     {
         opt.DefaultScheme = "cookie";
