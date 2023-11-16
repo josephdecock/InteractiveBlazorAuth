@@ -1,4 +1,4 @@
-﻿using BlazorApp2.Client;
+﻿using BlazorApp.Client;
 
 public class WasmExplainer : IRenderModeExplainer
 {

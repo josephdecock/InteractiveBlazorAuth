@@ -1,6 +1,6 @@
-using BlazorApp2.Client;
-using BlazorApp2.Client.Pages;
-using BlazorApp2.Components;
+using BlazorApp.Client;
+using BlazorApp.Client.Pages;
+using BlazorApp.Components;
 using Duende.Bff;
 using Duende.Bff.Yarp;
 using Microsoft.AspNetCore.Components.Authorization;

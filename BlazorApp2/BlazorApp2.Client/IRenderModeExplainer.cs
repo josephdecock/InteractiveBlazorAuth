@@ -1,4 +1,4 @@
-﻿namespace BlazorApp2.Client;
+﻿namespace BlazorApp.Client;
 
 public interface IRenderModeExplainer
 {
