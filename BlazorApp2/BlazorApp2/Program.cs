@@ -1,6 +1,8 @@
 using BlazorApp2.Client;
 using BlazorApp2.Client.Pages;
 using BlazorApp2.Components;
+using Duende.Bff;
+using Duende.Bff.Yarp;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
 
@@ -14,8 +16,10 @@ builder.Services
 
 
 builder.Services.AddScoped<IRenderModeExplainer, ServerExplainer>();
+builder.Services.AddScoped<ICallApi, CallApiFromServer>();
 
-builder.Services.AddBff();
+builder.Services.AddBff()
+    .AddRemoteApis();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
 
@@ -77,6 +81,8 @@ app.UseAuthorization();
 
 app.MapBffManagementEndpoints();
 
+app.MapRemoteBffApiEndpoint("/api/weatherforecast", "https://localhost:7001/weatherforecast")
+    .RequireAccessToken(TokenType.User);
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()

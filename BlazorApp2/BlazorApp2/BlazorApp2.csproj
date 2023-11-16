@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BlazorApp2.Client\BlazorApp2.Client.csproj" />
     <PackageReference Include="Duende.BFF" Version="2.1.1" />
+    <PackageReference Include="Duende.BFF.Yarp" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
   </ItemGroup>
 

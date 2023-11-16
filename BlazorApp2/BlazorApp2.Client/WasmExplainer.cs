@@ -2,5 +2,5 @@
 
 public class WasmExplainer : IRenderModeExplainer
 {
-    public string WhereAmI() => "This is in the client project.";
+    public string WhereAmI() => "This was rendered in the client project.";
 }
