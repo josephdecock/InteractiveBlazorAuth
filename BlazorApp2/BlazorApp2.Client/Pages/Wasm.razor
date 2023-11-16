@@ -1,0 +1,28 @@
+﻿@page "/wasm"
+
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
+@rendermode InteractiveWebAssembly
+@inject IRenderModeExplainer Explainer
+
+<PageTitle>Interactive WASM Render Mode</PageTitle>
+
+<h1>Interactive WASM Render Mode</h1>
+
+<p>@Explainer.WhereAmI()</p>
+
+<AuthorizeView>
+    <NotAuthorized>
+        Hello Anonymous!
+    </NotAuthorized>
+    <Authorized>
+        Hello @context.User.Identity?.Name!
+        <ul>
+        @foreach(var claim in context.User.Claims)
+        {
+            <li>@claim.Type: @claim.Value</li>
+        }
+        </ul>
+    </Authorized>
+</AuthorizeView>

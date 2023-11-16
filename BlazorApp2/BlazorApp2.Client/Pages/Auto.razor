@@ -1,0 +1,28 @@
+﻿@page "/auto"
+
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
+@rendermode InteractiveAuto
+@inject IRenderModeExplainer Explainer
+
+<PageTitle>Interactive Auto Render Mode</PageTitle>
+
+<h1>Interactive Auto Render Mode</h1>
+
+<p>@Explainer.WhereAmI()</p>
+
+<AuthorizeView>
+    <NotAuthorized>
+        Hello Anonymous!
+    </NotAuthorized>
+    <Authorized>
+        Hello @context.User.Identity?.Name!
+        <ul>
+        @foreach(var claim in context.User.Claims)
+        {
+            <li>@claim.Type: @claim.Value</li>
+        }
+        </ul>
+    </Authorized>
+</AuthorizeView>
