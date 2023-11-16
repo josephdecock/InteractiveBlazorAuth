@@ -45,7 +45,7 @@ builder.Services.AddAuthentication(opt =>
     {
         opt.Authority = "https://demo.duendesoftware.com";
 
-        opt.ClientId = "interactive.confidential";
+        opt.ClientId = "interactive.confidential.short";
         opt.ClientSecret = "secret";
         opt.ResponseType = "code";
         opt.ResponseMode = "query";
