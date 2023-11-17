@@ -21,11 +21,11 @@ public class CallApiFromServer : ICallApi
         _tokenManagementService = tokenManagementService;
     }
 
-    public async Task<string> CallApiAsync()
+    public async Task<ApiResult> CallApiAsync()
     {
         var request = new HttpRequestMessage(HttpMethod.Get, "token-details");
         var response = await SendRequestAsync(request);
-        return await response.Content.ReadAsStringAsync();
+        return await response.Content.ReadFromJsonAsync<ApiResult>() ?? throw new Exception("API Failure");
     }
 
     private async Task<HttpResponseMessage> SendRequestAsync(HttpRequestMessage request)

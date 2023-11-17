@@ -1,0 +1,23 @@
+﻿@inject ICallApi Api
+
+<h2>Call API</h2>
+
+@if(apiResult != null)
+{
+    <p>API Result: JTI: @apiResult.Jti retrieved at @apiResult.TimeStamp</p>
+} else
+{
+    <p>API Result: not called yet</p> 
+}
+
+<button class="btn btn-primary" @onclick="CallApiAsync">Call API</button>
+
+
+@code {
+    private ApiResult? apiResult;
+
+    protected async Task CallApiAsync()
+    {
+        apiResult = await Api.CallApiAsync();
+    }
+}

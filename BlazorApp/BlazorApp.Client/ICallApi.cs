@@ -1,4 +1,6 @@
 ﻿public interface ICallApi
 {
-    Task<string> CallApiAsync();
+    Task<ApiResult> CallApiAsync();
 }
+
+public record ApiResult(string Jti, DateTime TimeStamp);

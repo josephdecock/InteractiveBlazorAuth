@@ -1,11 +1,11 @@
 ﻿@page "/server"
 
+@using BlazorApp.Client.Components
 @using Microsoft.AspNetCore.Authorization
 
 @attribute [Authorize]
 @rendermode InteractiveServer
 @inject IRenderModeExplainer Explainer
-@inject ICallApi Api
 
 <PageTitle>Interactive Server Render Mode</PageTitle>
 
@@ -19,26 +19,7 @@
         Hello Anonymous!
     </NotAuthorized>
     <Authorized>
-        Hello @context.User.Identity?.Name!
-        <ul>
-            @foreach (var claim in context.User.Claims)
-            {
-                <li>@claim.Type: @claim.Value</li>
-            }
-        </ul>
-        <p>
-            @apiResult
-        </p>
+        <h2>Hello @context.User.Identity?.Name!</h2>
+        <CallApi></CallApi>
     </Authorized>
 </AuthorizeView>
-
-
-@code {
-    private string apiResult = string.Empty;
-
-    protected override async Task OnParametersSetAsync()
-    {
-        apiResult = await Api.CallApiAsync();
-    }
-}
-
