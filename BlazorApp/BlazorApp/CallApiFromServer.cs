@@ -23,7 +23,7 @@ public class CallApiFromServer : ICallApi
 
     public async Task<string> CallApiAsync()
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, "weatherforecast");
+        var request = new HttpRequestMessage(HttpMethod.Get, "token-details");
         var response = await SendRequestAsync(request);
         return await response.Content.ReadAsStringAsync();
     }

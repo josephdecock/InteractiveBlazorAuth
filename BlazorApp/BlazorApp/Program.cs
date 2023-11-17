@@ -43,7 +43,7 @@ builder.Services.AddAuthentication(opt =>
     })
     .AddOpenIdConnect("oidc", opt =>
     {
-        opt.Authority = "https://demo.duendesoftware.com";
+        opt.Authority = "https://localhost:5001";
 
         opt.ClientId = "interactive.confidential.short";
         opt.ClientSecret = "secret";
@@ -96,6 +96,9 @@ app.UseAuthorization();
 app.MapBffManagementEndpoints();
 
 app.MapRemoteBffApiEndpoint("/api/weatherforecast", "https://localhost:7001/weatherforecast")
+    .RequireAccessToken(TokenType.User);
+
+app.MapRemoteBffApiEndpoint("/api/token-details", "https://localhost:7001/token-details")
     .RequireAccessToken(TokenType.User);
 
 app.MapRazorComponents<App>()

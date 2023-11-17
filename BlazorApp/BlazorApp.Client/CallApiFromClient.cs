@@ -4,6 +4,6 @@
 
     public async Task<string> CallApiAsync()
     {
-        return await http.GetStringAsync("api/weatherforecast");
+        return await http.GetStringAsync("api/token-details");
     }
 }

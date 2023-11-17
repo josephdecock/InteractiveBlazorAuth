@@ -1,12 +1,15 @@
+using System.Security.Claims;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddAuthentication()
     .AddJwtBearer(opt =>
     {
-        opt.Authority = "https://demo.duendesoftware.com";
+        opt.Authority = "https://localhost:5001";
         opt.TokenValidationParameters.ValidateAudience = false;
         opt.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
+        opt.MapInboundClaims = false;
     });
 builder.Services.AddAuthorization(opt =>
 {
@@ -40,9 +43,17 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 }).RequireAuthorization("api");
 
+
+app.MapGet("/token-details", (ClaimsPrincipal user) =>
+{
+    return new TokenDetails(user.FindFirstValue("jti"), DateTime.Now);
+}).RequireAuthorization();
+
 app.Run();
 
 internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
+
+internal record TokenDetails(string? Jti, DateTime TimeStamp);
