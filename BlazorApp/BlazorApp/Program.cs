@@ -61,7 +61,7 @@ builder.Services.AddAuthentication(opt =>
         opt.TokenValidationParameters.RoleClaimType = "role";
 
         opt.GetClaimsFromUserInfoEndpoint = true;
-        opt.SaveTokens = true;
+        opt.SaveTokens = false; // No need to save tokens in the cookie because they are saved in the server side token store.
 
         opt.EventsType = typeof(OidcEvents);
     });
